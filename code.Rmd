@@ -9,6 +9,7 @@ knitr::opts_chunk$set(cache = FALSE,
 
 ```
 
+
 # Packages
 ```{r packages, warning=FALSE}
 library(tidyverse)
@@ -28,6 +29,7 @@ To perform the bayesian analysis, the [Open BUGS](https://www.openbugs.net/w/Dow
 data_cv <-  
   import("http://bit.ly/data_cvs") %>% 
   select(GY:NGS)
+
 
 # Long format
 data_cv_long <-
