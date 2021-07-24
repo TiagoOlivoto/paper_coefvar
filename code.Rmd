@@ -30,7 +30,6 @@ data_cv <-
   import("http://bit.ly/data_cvs") %>% 
   select(GY:NGS)
 
-
 # Long format
 data_cv_long <-
 data_cv %>%
