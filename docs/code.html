@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Analysis</title>
+
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="my-style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Supporting material for CV in weath paper</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    About
+  </a>
+</li>
+<li>
+  <a href="code.html">
+    <span class="fa fa-file-code-o"></span>
+     
+    Analysis
+  </a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/TiagoOlivoto/paper_coefvar">
+    <span class="fa fa-github-square"></span>
+     
+    Source
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Analysis</h1>
+
+</div>
+
+
+<div id="packages" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Packages</h1>
+<pre class="r"><code>library(tidyverse)
+library(metan)
+library(rio)
+library(ggrepel)
+library(R2OpenBUGS)
+library(boa)
+library(ggformula)</code></pre>
+<p>To perform the bayesian analysis, the <a href="https://www.openbugs.net/w/Downloads">Open BUGS</a> software need to be installed. Follow these instructions to install it.</p>
+</div>
+<div id="data" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Data</h1>
+<pre class="r"><code>data_cv &lt;-  
+  import(&quot;http://bit.ly/data_cvs&quot;) %&gt;% 
+  select(GY:NGS)
+
+# Long format
+data_cv_long &lt;-
+data_cv %&gt;%
+  pivot_longer(everything(), 
+               names_to = &quot;var&quot;,
+               values_to = &quot;cv&quot;) %&gt;%
+  remove_rows_na()
+
+# samples per variable
+data_cv_long %&gt;% n_by(var)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["var"],"name":[1],"type":["chr"],"align":["left"]},{"label":["cv"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"DF","2":"98"},{"1":"GY","2":"989"},{"1":"GYP","2":"64"},{"1":"HGW","2":"63"},{"1":"HW","2":"163"},{"1":"LS","2":"52"},{"1":"NGS","2":"115"},{"1":"NSPS","2":"76"},{"1":"PH","2":"209"},{"1":"TGW","2":"142"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>
+# create a list of variables with no missing values
+df &lt;- lapply(data_cv, remove_rows_na)</code></pre>
+</div>
+<div id="bayesian" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Bayesian</h1>
+<div id="function" class="section level2" number="3.1">
+<h2 number="3.1"><span class="header-section-number">3.1</span> Function</h2>
+<pre class="r"><code>bayes &lt;- function(df){
+linemodel &lt;- function(){
+  for (i in 1:64) # change the number of samples for each variable
+  {
+    y[i] ~ dgamma(r, mu)
+  }  
+  r ~ dunif(0,5)
+  mu ~ dunif(0,5)    
+}
+################ Especificando os dados
+linedata &lt;- list(y = df[[1]])
+###################### Specification innitial values
+lineinits &lt;- function(){list(r = 0.5, mu = 1) }
+#Specification the parameters
+parameters &lt;- c(&quot;r&quot;,&quot;mu&quot;)
+############# Execution function analysis with bugs package of R2OpenBUGS
+Niter &lt;- 10000
+Nburn &lt;- 1000
+Nthin &lt;- 10
+################ results of descriptive statistics #############
+modelo &lt;- bugs(data = linedata,
+               inits = lineinits,
+               parameters.to.save = parameters,
+               model.file = linemodel,
+               n.chains = 1,
+               n.iter = Niter,
+               n.burnin = Nburn,
+               n.thin = Nthin,
+               debug = TRUE)
+return(modelo$sims.matrix[,1] / modelo$sims.matrix[,2])
+}</code></pre>
+</div>
+<div id="posterior-distribution" class="section level2" number="3.2">
+<h2 number="3.2"><span class="header-section-number">3.2</span> Posterior distribution</h2>
+<pre class="r"><code>GY &lt;- bayes(df$GY)
+GYP &lt;- bayes(df$GYP)
+HGW &lt;- bayes(df$HGW)
+TGW &lt;- bayes(df$TGW)
+HW &lt;- bayes(df$HW)
+DF &lt;- bayes(df$DF)
+PH &lt;- bayes(df$PH)
+LS &lt;- bayes(df$LS)
+NSPS &lt;- bayes(df$NSps)
+NGS &lt;- bayes(df$NGS)</code></pre>
+</div>
+<div id="credibility-intervals-and-mean-posterior-for-each-trait" class="section level2" number="3.3">
+<h2 number="3.3"><span class="header-section-number">3.3</span> Credibility intervals and mean posterior for each trait</h2>
+<pre class="r"><code>posterior &lt;- import(&quot;http://bit.ly/data_posterior&quot;)
+conf_int_bayes &lt;- 
+sapply(posterior, 
+       function(x){
+         conf_int &lt;- boa.hpd(x, 0.05)
+         data.frame(LCI = conf_int[[1]],
+                    MEAN = mean(x),
+                    UCI = conf_int[[2]])
+       }) %&gt;% 
+  t()</code></pre>
+</div>
+<div id="marginal-posterior-density" class="section level2" number="3.4">
+<h2 number="3.4"><span class="header-section-number">3.4</span> Marginal posterior density</h2>
+<pre class="r"><code>posterior_long &lt;- posterior %&gt;% pivot_longer(everything())
+
+
+ggplot(posterior_long, aes(value))+
+  geom_density(fill = &quot;red&quot;, alpha = 0.5, size = 0.1) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = &quot;bottom&quot;,
+        legend.title = element_blank(),
+        axis.text = element_text(color = &quot;black&quot;),
+        axis.ticks = element_line(color = &quot;black&quot;),
+        axis.ticks.length = unit(0.15, &quot;cm&quot;)) +
+  facet_wrap(~ name, scales = &quot;free_y&quot;, ncol = 5) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = &quot;bottom&quot;,
+        legend.title = element_blank(),
+        axis.text = element_text(color = &quot;black&quot;),
+        axis.ticks = element_line(color = &quot;black&quot;),
+        axis.ticks.length = unit(0.15, &quot;cm&quot;)) +
+  labs(x = &quot;Coefficient of variation (%)&quot;,
+       y = &quot;Density&quot;)</code></pre>
+<p><img src="code_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
+<pre class="r"><code>
+ggsave(&quot;figs/fig1_posterior.jpg&quot;, dpi = 600, width = 25, height = 10, units = &quot;cm&quot;)
+
+
+# An alternative plot
+ggplot(posterior_long, aes(value))+
+  geom_density(aes(fill = name),
+               alpha = 0.5) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = &quot;bottom&quot;,
+        legend.title = element_blank(),
+        axis.text = element_text(color = &quot;black&quot;),
+        axis.ticks = element_line(color = &quot;black&quot;),
+        axis.ticks.length = unit(0.15, &quot;cm&quot;)) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = &quot;bottom&quot;,
+        legend.title = element_blank(),
+        axis.text = element_text(color = &quot;black&quot;),
+        axis.ticks = element_line(color = &quot;black&quot;),
+        axis.ticks.length = unit(0.15, &quot;cm&quot;)) +
+  labs(x = &quot;Coefficient of variation (%)&quot;,
+       y = &quot;Density&quot;)</code></pre>
+<p><img src="code_files/figure-html/unnamed-chunk-5-2.png" width="960" /></p>
+<pre class="r"><code>ggsave(&quot;figs/fig1_posterior2.jpg&quot;, dpi = 600, width = 25, height = 10, units = &quot;cm&quot;)</code></pre>
+</div>
+</div>
+<div id="frequentist" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Frequentist</h1>
+<div id="confidence-interval" class="section level2" number="4.1">
+<h2 number="4.1"><span class="header-section-number">4.1</span> Confidence interval</h2>
+<pre class="r"><code>
+get_confint &lt;- function(df, var){
+    if(is.grouped_df(df)){
+      results &lt;- doo(df, get_confint, var = {{var}})
+      return(results)
+    }
+    values &lt;- na.omit(df %&gt;% select_cols({{var}}) %&gt;% pull())
+    model &lt;- glm(values ~ 1, family = Gamma(link = &quot;identity&quot;))
+    conf &lt;- confint(model)
+    MEAN &lt;- coef(model)[[1]]
+    LCI &lt;- conf[[1]]
+    UCI &lt;-  conf[[2]]
+    data.frame(LCI = LCI, MEAN = MEAN, UCI = UCI)
+  }
+
+freq_lim &lt;- 
+  data_cv_long %&gt;%
+    group_by(var) %&gt;% 
+    get_confint(cv)</code></pre>
+<pre class="r"><code>p &lt;-
+  gf_density( ~ cv | var,
+              data = data_cv_long,
+              fill = &quot;red&quot;,
+              alpha = 0.5) %&gt;%
+  gf_fitdistr(linetype = 2) %&gt;%
+  gf_fitdistr(dist = &quot;gamma&quot;, color = &quot;blue&quot;)
+
+p +
+  facet_wrap(~var, nrow = 2, scales = &quot;free_y&quot;) +
+  theme(panel.grid.minor = element_blank(),
+        axis.text = element_text(color = &quot;black&quot;),
+        axis.ticks = element_line(color = &quot;black&quot;),
+        axis.ticks.length = unit(0.15, &quot;cm&quot;)) +
+  scale_y_continuous(expand = expansion(c(0, 0.05))) +
+  labs(x = &quot;Coeficient of variation (%)&quot;,
+       y = &quot;Density&quot;)</code></pre>
+<p><img src="code_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+<pre class="r"><code>
+ggsave(&quot;figs/fig2_density.jpg&quot;, dpi = 600, width = 25, height = 10, units = &quot;cm&quot;)
+</code></pre>
+</div>
+</div>
+<div id="results" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Results</h1>
+<div id="confidence-interval-1" class="section level2" number="5.1">
+<h2 number="5.1"><span class="header-section-number">5.1</span> Confidence interval</h2>
+<pre class="r"><code>df_confint &lt;- import(&quot;http://bit.ly/data_confint&quot;)
+
+
+ggplot(df_confint, aes(MEAN, fct_rev(VAR), color = APPROACH)) +
+  geom_point(position = position_dodge(width = 0.7),
+             size = 2) +
+  geom_errorbarh(aes(xmin = LCI, xmax = UCI),
+                 position = position_dodge(width = 0.7),
+                 width = 0.3) +
+  scale_x_continuous(breaks = seq(2, 19, by = 2),
+                     expand = c(0.15, 0.15)) +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = &quot;bottom&quot;,
+        legend.title = element_blank(),
+        axis.text = element_text(color = &quot;black&quot;),
+        axis.title  = element_text(color = &quot;black&quot;),
+        axis.ticks = element_line(color = &quot;black&quot;),
+        axis.ticks.length = unit(0.15, &quot;cm&quot;)) +
+  labs(x = &quot;Coefficient of variation (%)&quot;,
+       y = &quot;Variable&quot;) +
+  geom_text(aes(label = round(LCI, 2),
+                x = LCI),
+            position = position_dodge(width = 0.7), 
+            hjust = 1.2,
+            size = 2.5,
+            show.legend = FALSE) +
+  geom_text(aes(label = round(UCI, 2),
+                x = UCI),
+            position = position_dodge(width = 0.7), 
+            hjust = -0.3,
+            size = 2.5,
+            show.legend = FALSE)</code></pre>
+<p><img src="code_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre class="r"><code>
+ggsave(&quot;figs/fig3_confidence.jpg&quot;, dpi = 600, width = 10, height = 12, units = &quot;cm&quot;)</code></pre>
+</div>
+</div>
+
+<div id="rmd-source-code">JSBBbmFseXNpcyAKCmBgYHtyIGdsb2JhbF9vcHRpb25zLCBpbmNsdWRlID0gRkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChjYWNoZSA9IEZBTFNFLAogICAgICAgICAgICAgICAgICAgICAgY29tbWVudCA9ICIjIiwKICAgICAgICAgICAgICAgICAgICAgIGNvbGxhcHNlID0gVFJVRSwKICAgICAgICAgICAgICAgICAgICAgIG1lc3NhZ2UgPSBGQUxTRSwKICAgICAgICAgICAgICAgICAgICAgIHdhcm5pbmcgPSBGQUxTRSkKCmBgYAoKIyBQYWNrYWdlcwpgYGB7ciBwYWNrYWdlcywgd2FybmluZz1GQUxTRX0KbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkobWV0YW4pCmxpYnJhcnkocmlvKQpsaWJyYXJ5KGdncmVwZWwpCmxpYnJhcnkoUjJPcGVuQlVHUykKbGlicmFyeShib2EpCmxpYnJhcnkoZ2dmb3JtdWxhKQpgYGAKClRvIHBlcmZvcm0gdGhlIGJheWVzaWFuIGFuYWx5c2lzLCB0aGUgW09wZW4gQlVHU10oaHR0cHM6Ly93d3cub3BlbmJ1Z3MubmV0L3cvRG93bmxvYWRzKSBzb2Z0d2FyZSBuZWVkIHRvIGJlIGluc3RhbGxlZC4gRm9sbG93IHRoZXNlIGluc3RydWN0aW9ucyB0byBpbnN0YWxsIGl0LgoKCiMgRGF0YQpgYGB7cn0KZGF0YV9jdiA8LSAgCiAgaW1wb3J0KCJodHRwOi8vYml0Lmx5L2RhdGFfY3ZzIikgJT4lIAogIHNlbGVjdChHWTpOR1MpCgojIExvbmcgZm9ybWF0CmRhdGFfY3ZfbG9uZyA8LQpkYXRhX2N2ICU+JQogIHBpdm90X2xvbmdlcihldmVyeXRoaW5nKCksIAogICAgICAgICAgICAgICBuYW1lc190byA9ICJ2YXIiLAogICAgICAgICAgICAgICB2YWx1ZXNfdG8gPSAiY3YiKSAlPiUKICByZW1vdmVfcm93c19uYSgpCgojIHNhbXBsZXMgcGVyIHZhcmlhYmxlCmRhdGFfY3ZfbG9uZyAlPiUgbl9ieSh2YXIpCgojIGNyZWF0ZSBhIGxpc3Qgb2YgdmFyaWFibGVzIHdpdGggbm8gbWlzc2luZyB2YWx1ZXMKZGYgPC0gbGFwcGx5KGRhdGFfY3YsIHJlbW92ZV9yb3dzX25hKQoKYGBgCgoKCgojIEJheWVzaWFuCiMjIEZ1bmN0aW9uIAoKYGBge3IgZXZhbD1GQUxTRX0KYmF5ZXMgPC0gZnVuY3Rpb24oZGYpewpsaW5lbW9kZWwgPC0gZnVuY3Rpb24oKXsKICBmb3IgKGkgaW4gMTo2NCkgIyBjaGFuZ2UgdGhlIG51bWJlciBvZiBzYW1wbGVzIGZvciBlYWNoIHZhcmlhYmxlCiAgewogICAgeVtpXSB+IGRnYW1tYShyLCBtdSkKICB9ICAKICByIH4gZHVuaWYoMCw1KQogIG11IH4gZHVuaWYoMCw1KSAgICAKfQojIyMjIyMjIyMjIyMjIyMjIEVzcGVjaWZpY2FuZG8gb3MgZGFkb3MKbGluZWRhdGEgPC0gbGlzdCh5ID0gZGZbWzFdXSkKIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyBTcGVjaWZpY2F0aW9uIGlubml0aWFsIHZhbHVlcwpsaW5laW5pdHMgPC0gZnVuY3Rpb24oKXtsaXN0KHIgPSAwLjUsIG11ID0gMSkgfQojU3BlY2lmaWNhdGlvbiB0aGUgcGFyYW1ldGVycwpwYXJhbWV0ZXJzIDwtIGMoInIiLCJtdSIpCiMjIyMjIyMjIyMjIyMgRXhlY3V0aW9uIGZ1bmN0aW9uIGFuYWx5c2lzIHdpdGggYnVncyBwYWNrYWdlIG9mIFIyT3BlbkJVR1MKTml0ZXIgPC0gMTAwMDAKTmJ1cm4gPC0gMTAwMApOdGhpbiA8LSAxMAojIyMjIyMjIyMjIyMjIyMjIHJlc3VsdHMgb2YgZGVzY3JpcHRpdmUgc3RhdGlzdGljcyAjIyMjIyMjIyMjIyMjCm1vZGVsbyA8LSBidWdzKGRhdGEgPSBsaW5lZGF0YSwKICAgICAgICAgICAgICAgaW5pdHMgPSBsaW5laW5pdHMsCiAgICAgICAgICAgICAgIHBhcmFtZXRlcnMudG8uc2F2ZSA9IHBhcmFtZXRlcnMsCiAgICAgICAgICAgICAgIG1vZGVsLmZpbGUgPSBsaW5lbW9kZWwsCiAgICAgICAgICAgICAgIG4uY2hhaW5zID0gMSwKICAgICAgICAgICAgICAgbi5pdGVyID0gTml0ZXIsCiAgICAgICAgICAgICAgIG4uYnVybmluID0gTmJ1cm4sCiAgICAgICAgICAgICAgIG4udGhpbiA9IE50aGluLAogICAgICAgICAgICAgICBkZWJ1ZyA9IFRSVUUpCnJldHVybihtb2RlbG8kc2ltcy5tYXRyaXhbLDFdIC8gbW9kZWxvJHNpbXMubWF0cml4WywyXSkKfQpgYGAKCgojIyBQb3N0ZXJpb3IgZGlzdHJpYnV0aW9uCmBgYHtyIGV2YWwgPSBGQUxTRX0KR1kgPC0gYmF5ZXMoZGYkR1kpCkdZUCA8LSBiYXllcyhkZiRHWVApCkhHVyA8LSBiYXllcyhkZiRIR1cpClRHVyA8LSBiYXllcyhkZiRUR1cpCkhXIDwtIGJheWVzKGRmJEhXKQpERiA8LSBiYXllcyhkZiRERikKUEggPC0gYmF5ZXMoZGYkUEgpCkxTIDwtIGJheWVzKGRmJExTKQpOU1BTIDwtIGJheWVzKGRmJE5TcHMpCk5HUyA8LSBiYXllcyhkZiROR1MpCmBgYAoKCgojIyBDcmVkaWJpbGl0eSBpbnRlcnZhbHMgYW5kIG1lYW4gcG9zdGVyaW9yIGZvciBlYWNoIHRyYWl0CmBgYHtyfQpwb3N0ZXJpb3IgPC0gaW1wb3J0KCJodHRwOi8vYml0Lmx5L2RhdGFfcG9zdGVyaW9yIikKY29uZl9pbnRfYmF5ZXMgPC0gCnNhcHBseShwb3N0ZXJpb3IsIAogICAgICAgZnVuY3Rpb24oeCl7CiAgICAgICAgIGNvbmZfaW50IDwtIGJvYS5ocGQoeCwgMC4wNSkKICAgICAgICAgZGF0YS5mcmFtZShMQ0kgPSBjb25mX2ludFtbMV1dLAogICAgICAgICAgICAgICAgICAgIE1FQU4gPSBtZWFuKHgpLAogICAgICAgICAgICAgICAgICAgIFVDSSA9IGNvbmZfaW50W1syXV0pCiAgICAgICB9KSAlPiUgCiAgdCgpCmBgYAoKCiMjICBNYXJnaW5hbCBwb3N0ZXJpb3IgZGVuc2l0eQpgYGB7ciBmaWcud2lkdGg9MTB9CnBvc3Rlcmlvcl9sb25nIDwtIHBvc3RlcmlvciAlPiUgcGl2b3RfbG9uZ2VyKGV2ZXJ5dGhpbmcoKSkKCgpnZ3Bsb3QocG9zdGVyaW9yX2xvbmcsIGFlcyh2YWx1ZSkpKwogIGdlb21fZGVuc2l0eShmaWxsID0gInJlZCIsIGFscGhhID0gMC41LCBzaXplID0gMC4xKSArCiAgdGhlbWUocGFuZWwuZ3JpZC5taW5vciA9IGVsZW1lbnRfYmxhbmsoKSwKICAgICAgICBsZWdlbmQucG9zaXRpb24gPSAiYm90dG9tIiwKICAgICAgICBsZWdlbmQudGl0bGUgPSBlbGVtZW50X2JsYW5rKCksCiAgICAgICAgYXhpcy50ZXh0ID0gZWxlbWVudF90ZXh0KGNvbG9yID0gImJsYWNrIiksCiAgICAgICAgYXhpcy50aWNrcyA9IGVsZW1lbnRfbGluZShjb2xvciA9ICJibGFjayIpLAogICAgICAgIGF4aXMudGlja3MubGVuZ3RoID0gdW5pdCgwLjE1LCAiY20iKSkgKwogIGZhY2V0X3dyYXAofiBuYW1lLCBzY2FsZXMgPSAiZnJlZV95IiwgbmNvbCA9IDUpICsKICB0aGVtZShwYW5lbC5ncmlkLm1pbm9yID0gZWxlbWVudF9ibGFuaygpLAogICAgICAgIGxlZ2VuZC5wb3NpdGlvbiA9ICJib3R0b20iLAogICAgICAgIGxlZ2VuZC50aXRsZSA9IGVsZW1lbnRfYmxhbmsoKSwKICAgICAgICBheGlzLnRleHQgPSBlbGVtZW50X3RleHQoY29sb3IgPSAiYmxhY2siKSwKICAgICAgICBheGlzLnRpY2tzID0gZWxlbWVudF9saW5lKGNvbG9yID0gImJsYWNrIiksCiAgICAgICAgYXhpcy50aWNrcy5sZW5ndGggPSB1bml0KDAuMTUsICJjbSIpKSArCiAgbGFicyh4ID0gIkNvZWZmaWNpZW50IG9mIHZhcmlhdGlvbiAoJSkiLAogICAgICAgeSA9ICJEZW5zaXR5IikKCmdnc2F2ZSgiZmlncy9maWcxX3Bvc3Rlcmlvci5qcGciLCBkcGkgPSA2MDAsIHdpZHRoID0gMjUsIGhlaWdodCA9IDEwLCB1bml0cyA9ICJjbSIpCgoKIyBBbiBhbHRlcm5hdGl2ZSBwbG90CmdncGxvdChwb3N0ZXJpb3JfbG9uZywgYWVzKHZhbHVlKSkrCiAgZ2VvbV9kZW5zaXR5KGFlcyhmaWxsID0gbmFtZSksCiAgICAgICAgICAgICAgIGFscGhhID0gMC41KSArCiAgdGhlbWUocGFuZWwuZ3JpZC5taW5vciA9IGVsZW1lbnRfYmxhbmsoKSwKICAgICAgICBsZWdlbmQucG9zaXRpb24gPSAiYm90dG9tIiwKICAgICAgICBsZWdlbmQudGl0bGUgPSBlbGVtZW50X2JsYW5rKCksCiAgICAgICAgYXhpcy50ZXh0ID0gZWxlbWVudF90ZXh0KGNvbG9yID0gImJsYWNrIiksCiAgICAgICAgYXhpcy50aWNrcyA9IGVsZW1lbnRfbGluZShjb2xvciA9ICJibGFjayIpLAogICAgICAgIGF4aXMudGlja3MubGVuZ3RoID0gdW5pdCgwLjE1LCAiY20iKSkgKwogIHRoZW1lKHBhbmVsLmdyaWQubWlub3IgPSBlbGVtZW50X2JsYW5rKCksCiAgICAgICAgbGVnZW5kLnBvc2l0aW9uID0gImJvdHRvbSIsCiAgICAgICAgbGVnZW5kLnRpdGxlID0gZWxlbWVudF9ibGFuaygpLAogICAgICAgIGF4aXMudGV4dCA9IGVsZW1lbnRfdGV4dChjb2xvciA9ICJibGFjayIpLAogICAgICAgIGF4aXMudGlja3MgPSBlbGVtZW50X2xpbmUoY29sb3IgPSAiYmxhY2siKSwKICAgICAgICBheGlzLnRpY2tzLmxlbmd0aCA9IHVuaXQoMC4xNSwgImNtIikpICsKICBsYWJzKHggPSAiQ29lZmZpY2llbnQgb2YgdmFyaWF0aW9uICglKSIsCiAgICAgICB5ID0gIkRlbnNpdHkiKQpnZ3NhdmUoImZpZ3MvZmlnMV9wb3N0ZXJpb3IyLmpwZyIsIGRwaSA9IDYwMCwgd2lkdGggPSAyNSwgaGVpZ2h0ID0gMTAsIHVuaXRzID0gImNtIikKYGBgCgoKCiMgRnJlcXVlbnRpc3QKIyMgQ29uZmlkZW5jZSBpbnRlcnZhbApgYGB7ciB3YXJuaW5nPUZBTFNFLCBtZXNzYWdlPUZBTFNFfQoKZ2V0X2NvbmZpbnQgPC0gZnVuY3Rpb24oZGYsIHZhcil7CiAgICBpZihpcy5ncm91cGVkX2RmKGRmKSl7CiAgICAgIHJlc3VsdHMgPC0gZG9vKGRmLCBnZXRfY29uZmludCwgdmFyID0ge3t2YXJ9fSkKICAgICAgcmV0dXJuKHJlc3VsdHMpCiAgICB9CiAgICB2YWx1ZXMgPC0gbmEub21pdChkZiAlPiUgc2VsZWN0X2NvbHMoe3t2YXJ9fSkgJT4lIHB1bGwoKSkKICAgIG1vZGVsIDwtIGdsbSh2YWx1ZXMgfiAxLCBmYW1pbHkgPSBHYW1tYShsaW5rID0gImlkZW50aXR5IikpCiAgICBjb25mIDwtIGNvbmZpbnQobW9kZWwpCiAgICBNRUFOIDwtIGNvZWYobW9kZWwpW1sxXV0KICAgIExDSSA8LSBjb25mW1sxXV0KICAgIFVDSSA8LSAgY29uZltbMl1dCiAgICBkYXRhLmZyYW1lKExDSSA9IExDSSwgTUVBTiA9IE1FQU4sIFVDSSA9IFVDSSkKICB9CgpmcmVxX2xpbSA8LSAKICBkYXRhX2N2X2xvbmcgJT4lCiAgICBncm91cF9ieSh2YXIpICU+JSAKICAgIGdldF9jb25maW50KGN2KQoKYGBgCgoKYGBge3IgZmlnLndpZHRoPTEwfQpwIDwtCiAgZ2ZfZGVuc2l0eSggfiBjdiB8IHZhciwKICAgICAgICAgICAgICBkYXRhID0gZGF0YV9jdl9sb25nLAogICAgICAgICAgICAgIGZpbGwgPSAicmVkIiwKICAgICAgICAgICAgICBhbHBoYSA9IDAuNSkgJT4lCiAgZ2ZfZml0ZGlzdHIobGluZXR5cGUgPSAyKSAlPiUKICBnZl9maXRkaXN0cihkaXN0ID0gImdhbW1hIiwgY29sb3IgPSAiYmx1ZSIpCgpwICsKICBmYWNldF93cmFwKH52YXIsIG5yb3cgPSAyLCBzY2FsZXMgPSAiZnJlZV95IikgKwogIHRoZW1lKHBhbmVsLmdyaWQubWlub3IgPSBlbGVtZW50X2JsYW5rKCksCiAgICAgICAgYXhpcy50ZXh0ID0gZWxlbWVudF90ZXh0KGNvbG9yID0gImJsYWNrIiksCiAgICAgICAgYXhpcy50aWNrcyA9IGVsZW1lbnRfbGluZShjb2xvciA9ICJibGFjayIpLAogICAgICAgIGF4aXMudGlja3MubGVuZ3RoID0gdW5pdCgwLjE1LCAiY20iKSkgKwogIHNjYWxlX3lfY29udGludW91cyhleHBhbmQgPSBleHBhbnNpb24oYygwLCAwLjA1KSkpICsKICBsYWJzKHggPSAiQ29lZmljaWVudCBvZiB2YXJpYXRpb24gKCUpIiwKICAgICAgIHkgPSAiRGVuc2l0eSIpCgpnZ3NhdmUoImZpZ3MvZmlnMl9kZW5zaXR5LmpwZyIsIGRwaSA9IDYwMCwgd2lkdGggPSAyNSwgaGVpZ2h0ID0gMTAsIHVuaXRzID0gImNtIikKCgpgYGAKCgoKCiMgUmVzdWx0cwojIyBDb25maWRlbmNlIGludGVydmFsCmBgYHtyfQpkZl9jb25maW50IDwtIGltcG9ydCgiaHR0cDovL2JpdC5seS9kYXRhX2NvbmZpbnQiKQoKCmdncGxvdChkZl9jb25maW50LCBhZXMoTUVBTiwgZmN0X3JldihWQVIpLCBjb2xvciA9IEFQUFJPQUNIKSkgKwogIGdlb21fcG9pbnQocG9zaXRpb24gPSBwb3NpdGlvbl9kb2RnZSh3aWR0aCA9IDAuNyksCiAgICAgICAgICAgICBzaXplID0gMikgKwogIGdlb21fZXJyb3JiYXJoKGFlcyh4bWluID0gTENJLCB4bWF4ID0gVUNJKSwKICAgICAgICAgICAgICAgICBwb3NpdGlvbiA9IHBvc2l0aW9uX2RvZGdlKHdpZHRoID0gMC43KSwKICAgICAgICAgICAgICAgICB3aWR0aCA9IDAuMykgKwogIHNjYWxlX3hfY29udGludW91cyhicmVha3MgPSBzZXEoMiwgMTksIGJ5ID0gMiksCiAgICAgICAgICAgICAgICAgICAgIGV4cGFuZCA9IGMoMC4xNSwgMC4xNSkpICsKICB0aGVtZShwYW5lbC5ncmlkLm1pbm9yID0gZWxlbWVudF9ibGFuaygpLAogICAgICAgIGxlZ2VuZC5wb3NpdGlvbiA9ICJib3R0b20iLAogICAgICAgIGxlZ2VuZC50aXRsZSA9IGVsZW1lbnRfYmxhbmsoKSwKICAgICAgICBheGlzLnRleHQgPSBlbGVtZW50X3RleHQoY29sb3IgPSAiYmxhY2siKSwKICAgICAgICBheGlzLnRpdGxlICA9IGVsZW1lbnRfdGV4dChjb2xvciA9ICJibGFjayIpLAogICAgICAgIGF4aXMudGlja3MgPSBlbGVtZW50X2xpbmUoY29sb3IgPSAiYmxhY2siKSwKICAgICAgICBheGlzLnRpY2tzLmxlbmd0aCA9IHVuaXQoMC4xNSwgImNtIikpICsKICBsYWJzKHggPSAiQ29lZmZpY2llbnQgb2YgdmFyaWF0aW9uICglKSIsCiAgICAgICB5ID0gIlZhcmlhYmxlIikgKwogIGdlb21fdGV4dChhZXMobGFiZWwgPSByb3VuZChMQ0ksIDIpLAogICAgICAgICAgICAgICAgeCA9IExDSSksCiAgICAgICAgICAgIHBvc2l0aW9uID0gcG9zaXRpb25fZG9kZ2Uod2lkdGggPSAwLjcpLCAKICAgICAgICAgICAgaGp1c3QgPSAxLjIsCiAgICAgICAgICAgIHNpemUgPSAyLjUsCiAgICAgICAgICAgIHNob3cubGVnZW5kID0gRkFMU0UpICsKICBnZW9tX3RleHQoYWVzKGxhYmVsID0gcm91bmQoVUNJLCAyKSwKICAgICAgICAgICAgICAgIHggPSBVQ0kpLAogICAgICAgICAgICBwb3NpdGlvbiA9IHBvc2l0aW9uX2RvZGdlKHdpZHRoID0gMC43KSwgCiAgICAgICAgICAgIGhqdXN0ID0gLTAuMywKICAgICAgICAgICAgc2l6ZSA9IDIuNSwKICAgICAgICAgICAgc2hvdy5sZWdlbmQgPSBGQUxTRSkKCmdnc2F2ZSgiZmlncy9maWczX2NvbmZpZGVuY2UuanBnIiwgZHBpID0gNjAwLCB3aWR0aCA9IDEwLCBoZWlnaHQgPSAxMiwgdW5pdHMgPSAiY20iKQoKYGBgCgoKCg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("code.Rmd");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

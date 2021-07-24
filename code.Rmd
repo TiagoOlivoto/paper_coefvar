@@ -26,7 +26,7 @@ To perform the bayesian analysis, the [Open BUGS](https://www.openbugs.net/w/Dow
 # Data
 ```{r}
 data_cv <-  
-  import("http://bit.ly/data_coef_var") %>% 
+  import("http://bit.ly/data_cvs") %>% 
   select(GY:NGS)
 
 # Long format
@@ -104,7 +104,7 @@ NGS <- bayes(df$NGS)
 
 ## Credibility intervals and mean posterior for each trait
 ```{r}
-posterior <- import("http://bit.ly/paper_cv_posterior")
+posterior <- import("http://bit.ly/data_posterior")
 conf_int_bayes <- 
 sapply(posterior, 
        function(x){
@@ -222,7 +222,7 @@ ggsave("figs/fig2_density.jpg", dpi = 600, width = 25, height = 10, units = "cm"
 # Results
 ## Confidence interval
 ```{r}
-df_confint <- import("http://bit.ly/paper_cv_confint")
+df_confint <- import("http://bit.ly/data_confint")
 
 
 ggplot(df_confint, aes(MEAN, fct_rev(VAR), color = APPROACH)) +
