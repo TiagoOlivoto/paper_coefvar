@@ -1,5 +1,5 @@
 % About
-In this website are available the data and codes used in the paper "Bayesian and Frequentist approaches reveal the distribution of experimental coefficient of variation in wheat: a meta-analysis"
+In this website are available the data and codes used in the paper *"A meta-analysis of the experimental coefficient of variation in wheat using Bayesian and Frequentist approaches"*
 
 
 # How to reproduce? {-}

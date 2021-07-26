@@ -13,7 +13,7 @@ output:
       toc_collapsed: true
     lib_dir: site_libs
 navbar:
-  title: Supporting material for CV in weath paper
+  title: Supporting material
   left:
   - text: About
     icon: fa fa-home
